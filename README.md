@@ -1,5 +1,7 @@
 # streaming-06-scenarios
+
 ## Author: Lindsay Foster
+
 ## Date: June 2026
 
 [![API Reference](https://img.shields.io/badge/API--Utils-datafun--streaming-purple)](https://denisecase.github.io/datafun-streaming/api/)
