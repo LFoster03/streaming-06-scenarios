@@ -20,9 +20,11 @@ authors:
     given-names: Denise M.
     orcid: "https://orcid.org/0000-0001-6165-7389"
     affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
-
-repository-code: "https://github.com/denisecase/streaming-06-scenarios"
-url: "https://github.com/denisecase/streaming-06-scenarios"
+  - family-names: Foster
+    given-names: Lindsay
+    affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
+repository-code: "https://github.com/LFoster03/streaming-06-scenarios"
+url: "https://github.com/LFoster03/streaming-06-scenarios"
 license: MIT
 
 abstract: >

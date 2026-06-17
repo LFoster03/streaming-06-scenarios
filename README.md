@@ -1,4 +1,6 @@
 # streaming-06-scenarios
+## Author: Lindsay Foster
+## Date: June 2026
 
 [![API Reference](https://img.shields.io/badge/API--Utils-datafun--streaming-purple)](https://denisecase.github.io/datafun-streaming/api/)
 [![Workflow Guide](https://img.shields.io/badge/Pro--Guide-pro--analytics--02-green)](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
@@ -107,8 +109,8 @@ After you get a copy of this repo in your own GitHub account,
 open a machine terminal in your `Repos` folder:
 
 ```bash
-# Replace username with YOUR GitHub username.
-git clone https://github.com/username/streaming-06-scenarios
+
+git clone https://github.com/LFoster03/streaming-06-scenarios
 
 cd streaming-06-scenarios
 code .
