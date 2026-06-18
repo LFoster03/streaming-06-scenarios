@@ -259,15 +259,17 @@ original `sales.csv` had no discount codes populated, a helper script
 `add_discounts_to_sales.py` was used to assign codes based on order rules;
 the original file was preserved as `sales_backup.csv`.
 
+---
+
 ## Phase 5: Apply Skills to a New Problem
 
-**What I Changed** I chose to extend the current sales example from the case project.
+**What I Changed:** I chose to extend the current sales example from the case project.
 The base example consumed online course sales from a Kafka topic,
 validated each message, computed derived fields, and stored results in DuckDB.
 My extension adds discount code support as a new derived field calculation,
 making the pipeline more realistic by reflecting actual promotional pricing.
 
-**What It Shows**
+**What It Shows:**
 The live line chart displays sale total by message offset, showing how
 order values fluctuate across the stream. Larger orders (high quantity or
 premium products) appear as spikes, while discounted orders are visibly
@@ -282,30 +284,44 @@ covering sales in USD, CAD, and MXN across six regions.
 
 Revenue by region (after discounts and tax):
 
-RegionRevenueUS-CA$3,227.93US-TX$2,884.46US-MO$2,689.99CA-ON$1,806.21CA-QC$979.63MX-CMX$913.33
+| Region | Revenue   |
+| ------ | --------- |
+| US-CA  | $3,227.93 |
+| US-TX  | $2,884.46 |
+| US-MO  | $2,689.99 |
+| CA-ON  | $1,806.21 |
+| CA-QC  | $979.63   |
+| MX-CMX | $913.33   |
 
 Top products by order count:
 
-ProductOrdersRevenuePY-INTRO-00145$2,009.11PY-STREAM-00543$3,726.23PY-DATA-00225$2,083.02PY-NLP-00624$2,215.84PY-VIZ-00321$1,255.50PY-SQL-00420$1,211.85
+| Product       | Orders | Revenue   |
+| ------------- | ------ | --------- |
+| PY-INTRO-001  | 45     | $2,009.11 |
+| PY-STREAM-005 | 43     | $3,726.23 |
+| PY-DATA-002   | 25     | $2,083.02 |
+| PY-NLP-006    | 24     | $2,215.84 |
+| PY-VIZ-003    | 21     | $1,255.50 |
+| PY-SQL-004    | 20     | $1,211.85 |
 
 Discount impact:
 
-105 of 178 orders (59%) had a discount applied
-Total discounts given: $1,961.17
-Total revenue before discounts: $13,302.14
-Total revenue after discounts and tax: $12,501.55
+- 105 of 178 orders (59%) had a discount applied
+- Total discounts given: $1,961.17
+- Total revenue before discounts: $13,302.14
+- Total revenue after discounts and tax: $12,501.55
 
 Payment methods: Credit card dominated (86 orders), followed by
 PayPal (55), Apple Pay (33), and gift card (4).
 
-Key insight: PY-STREAM-005 generated the most revenue despite being
+**Key insight:** PY-STREAM-005 generated the most revenue despite being
 second in order count, because it has the highest unit price ($59.99)
 and frequently appears in multi-unit orders. PY-INTRO-001 was the most
 popular product by order count but lowest in revenue per order due to
 its lower price point ($29.99). Discounts reduced total revenue by
 roughly 14.7%, which is meaningful and worth tracking in production.
 
-What I Learned
+**What I Learned:**
 
 Building this extension showed how the consumer is responsible for all
 derived calculations — the producer sends raw events only. Adding a new
