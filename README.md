@@ -241,6 +241,24 @@ To start fresh, see
 [manage topics](https://denisecase.github.io/pro-analytics-02/kafka/manage-topics/)
 to delete the topic and recreate it.
 
+## Technical Modification
+
+**What I changed:** Added a `compute_discount_amount` function to `derived_fields_foster.py`
+and updated `enrich_message` to apply it. Renamed the output CSV from `consumed_sales.csv`
+to `consumed_sales_discounts.csv` in `kafka_consumer_foster.py`.
+
+**Why:** The raw message includes a `discount_pct` optional field, but the original
+code ignored it. This change ensures discounts are reflected in the final `total`.
+
+**What I observed:** The `discount_amount` and `discounted_price` fields now appear
+in consumed output, and `total` correctly reflects the post-discount, post-tax price.
+Orders with a `discount_code` matching an entry in `discount_codes.csv` (such as `TEAM20`
+for quantity ≥ 3) show a non-zero `discount_amount`, and `total` is correctly computed
+as the discounted price plus tax rather than the full subtotal plus tax. Because the
+original `sales.csv` had no discount codes populated, a helper script
+`add_discounts_to_sales.py` was used to assign codes based on order rules;
+the original file was preserved as `sales_backup.csv`.
+
 </details>
 
 ## Notes
