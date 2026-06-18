@@ -241,7 +241,7 @@ To start fresh, see
 [manage topics](https://denisecase.github.io/pro-analytics-02/kafka/manage-topics/)
 to delete the topic and recreate it.
 
-## Technical Modification
+## Phase 4: Technical Modification
 
 **What I changed:** Added a `compute_discount_amount` function to `derived_fields_foster.py`
 and updated `enrich_message` to apply it. Renamed the output CSV from `consumed_sales.csv`
@@ -258,6 +258,67 @@ as the discounted price plus tax rather than the full subtotal plus tax. Because
 original `sales.csv` had no discount codes populated, a helper script
 `add_discounts_to_sales.py` was used to assign codes based on order rules;
 the original file was preserved as `sales_backup.csv`.
+
+## Phase 5: Apply Skills to a New Problem
+
+**What I Changed** I chose to extend the current sales example from the case project.
+The base example consumed online course sales from a Kafka topic,
+validated each message, computed derived fields, and stored results in DuckDB.
+My extension adds discount code support as a new derived field calculation,
+making the pipeline more realistic by reflecting actual promotional pricing.
+
+**What It Shows**
+The live line chart displays sale total by message offset, showing how
+order values fluctuate across the stream. Larger orders (high quantity or
+premium products) appear as spikes, while discounted orders are visibly
+lower than they would have been at full price.
+
+The stored data in `consumed_sales_discounts.csv` and `sales.duckdb`
+includes all enriched fields, enabling downstream queries by region,
+product, payment method, and discount applied.
+
+The consumer processed 178 messages across three days (May 4–6, 2026),
+covering sales in USD, CAD, and MXN across six regions.
+
+Revenue by region (after discounts and tax):
+
+RegionRevenueUS-CA$3,227.93US-TX$2,884.46US-MO$2,689.99CA-ON$1,806.21CA-QC$979.63MX-CMX$913.33
+
+Top products by order count:
+
+ProductOrdersRevenuePY-INTRO-00145$2,009.11PY-STREAM-00543$3,726.23PY-DATA-00225$2,083.02PY-NLP-00624$2,215.84PY-VIZ-00321$1,255.50PY-SQL-00420$1,211.85
+
+Discount impact:
+
+105 of 178 orders (59%) had a discount applied
+Total discounts given: $1,961.17
+Total revenue before discounts: $13,302.14
+Total revenue after discounts and tax: $12,501.55
+
+Payment methods: Credit card dominated (86 orders), followed by
+PayPal (55), Apple Pay (33), and gift card (4).
+
+Key insight: PY-STREAM-005 generated the most revenue despite being
+second in order count, because it has the highest unit price ($59.99)
+and frequently appears in multi-unit orders. PY-INTRO-001 was the most
+popular product by order count but lowest in revenue per order due to
+its lower price point ($29.99). Discounts reduced total revenue by
+roughly 14.7%, which is meaningful and worth tracking in production.
+
+What I Learned
+
+Building this extension showed how the consumer is responsible for all
+derived calculations — the producer sends raw events only. Adding a new
+derived field required changes across multiple files: the derived fields
+module, the data contract, and the consumer itself, which reinforced how
+a real streaming pipeline has clear separation of concerns between
+producing, validating, enriching, and storing data.
+
+I also learned that even a simple discount lookup requires careful
+plumbing — loading the reference table, passing it through the call
+chain, and applying it in the right order relative to tax — and that
+small mistakes like importing from the wrong module or missing a comma
+in a function signature can prevent the whole pipeline from running.
 
 </details>
 

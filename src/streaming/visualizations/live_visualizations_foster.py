@@ -6,13 +6,9 @@ This module creates a live line chart of sale total by message.
 The chart opens in a window while the consumer is running and updates
 as each message is consumed.
 
-Author: Denise Case
+Author: Lindsay Foster
 Date: 2026-05
 
-OBS:
-  Don't edit this file - it should remain a working example.
-  Copy it, rename it live_visualizations_yourname.py,
-  and modify your copy for your own charts.
 """
 
 # === DECLARE IMPORTS ===
