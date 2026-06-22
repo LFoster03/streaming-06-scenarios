@@ -241,6 +241,8 @@ To start fresh, see
 [manage topics](https://denisecase.github.io/pro-analytics-02/kafka/manage-topics/)
 to delete the topic and recreate it.
 
+</details>
+
 ## Phase 4: Technical Modification
 
 **What I changed:** Added a `compute_discount_amount` function to `derived_fields_foster.py`
@@ -339,8 +341,6 @@ in a function signature can prevent the whole pipeline from running.
 ## Live Stream Visualization
 
 ![Streaming Sales Chart](data/output/sales_chart_foster.png)
-
-</details>
 
 ## Notes
 
