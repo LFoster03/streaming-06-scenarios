@@ -210,7 +210,7 @@ uvx pre-commit run --all-files
 
 # run the producer
 clear
-uv run python -m streaming.kafka_producer_case
+uv run python -m streaming.kafka_producer_foster
 
 # do chores
 uv run ruff format .
@@ -234,7 +234,7 @@ Clear the terminal, then start the consumer.
 
 ```shell
 clear
-uv run python -m streaming.kafka_consumer_case
+uv run python -m streaming.kafka_consumer_foster
 ```
 
 To start fresh, see
@@ -335,6 +335,10 @@ plumbing — loading the reference table, passing it through the call
 chain, and applying it in the right order relative to tax — and that
 small mistakes like importing from the wrong module or missing a comma
 in a function signature can prevent the whole pipeline from running.
+
+## Live Stream Visualization
+
+![Streaming Sales Chart](data/output/sales_chart_foster.png)
 
 </details>
 
